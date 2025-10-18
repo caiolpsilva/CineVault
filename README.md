@@ -1,4 +1,4 @@
-# "Conheça o Ator/Atriz" - App Ionic + Angular
+# "CineVault" - App Ionic + Angular
 
 Um aplicativo móvel em **Ionic + Angular (modo standalone)** que permite ao usuário pesquisar atores/atrizes e visualizar sua filmografia completa, com filmes ordenados por ano de lançamento (mais recentes primeiro), usando a API do TMDb.
 
