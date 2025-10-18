@@ -1,0 +1,80 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="Voltar" defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalhes do Ator/Atriz</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" *ngIf="ator; else loading">
+  <!-- Hero Section -->
+  <div class="actor-hero">
+    <img
+      [src]="'https://image.tmdb.org/t/p/w500' + ator.profile_path"
+      alt="{{ ator.name }}"
+      class="actor-img"
+      *ngIf="ator.profile_path; else noProfileImage">
+
+    <ng-template #noProfileImage>
+      <div class="actor-img no-profile">
+        <div class="no-profile-icon">🎭</div>
+      </div>
+    </ng-template>
+
+    <h1 class="actor-name">{{ ator.name }}</h1>
+  </div>
+
+  <!-- Movies Section -->
+  <div class="filmes-section">
+    <h2 class="section-title">Filmografia</h2>
+
+    <div class="filmes-grid" *ngIf="filmes && filmes.length > 0; else noMovies">
+      <ion-card
+        *ngFor="let movie of filmes; trackBy: trackByMovieId"
+        class="movie-card"
+        appDestacar>
+
+        <img
+          [src]="'https://image.tmdb.org/t/p/w400' + movie.poster_path"
+          alt="{{ movie.title }}"
+          class="movie-poster"
+          *ngIf="movie.poster_path; else noPoster">
+
+        <ng-template #noPoster>
+          <div class="movie-poster no-poster">
+            <div class="no-poster-icon">🎬</div>
+          </div>
+        </ng-template>
+
+        <div class="movie-info">
+          <h3 class="movie-title">{{ movie.title }}</h3>
+          <p class="movie-year" *ngIf="movie.release_date">
+            {{ movie.release_date | date:'yyyy' }}
+          </p>
+          <p class="movie-year" *ngIf="!movie.release_date">
+            Data não disponível
+          </p>
+        </div>
+      </ion-card>
+    </div>
+
+    <ng-template #noMovies>
+      <div class="no-movies">
+        <div class="no-movies-icon">🎭</div>
+        <h3 class="no-movies-title">Nenhum filme encontrado</h3>
+        <p class="no-movies-text">
+          Não há filmes disponíveis para este ator no momento.
+        </p>
+      </div>
+    </ng-template>
+  </div>
+</ion-content>
+
+<!-- Loading Template -->
+<ng-template #loading>
+  <div class="loading-container">
+    <ion-spinner name="crescent" class="loading-spinner"></ion-spinner>
+    <p class="loading-text">Carregando detalhes do ator...</p>
+  </div>
+</ng-template>

@@ -1,0 +1,58 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Conheça a filmografia do Ator/Atriz</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="search-container">
+    <!-- <h1 class="app-title">descubra atores</h1> -->
+
+    <div class="search-wrapper">
+      <ion-searchbar
+        [(ngModel)]="nomeAtor"
+        (ionInput)="onSearchInput($event)"
+        placeholder="Digite o nome do ator/atriz..."
+        animated="true"
+        showClearButton="always">
+      </ion-searchbar>
+    </div>
+  </div>
+
+  <div class="suggestions-container">
+    <!-- Loading State -->
+    <div *ngIf="carregando" class="loading-container">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p class="loading-text">Buscando atores...</p>
+    </div>
+
+    <!-- Suggestions List -->
+    <ion-list *ngIf="atores.length > 0 && !carregando">
+      <ion-item
+        *ngFor="let ator of atores.slice(0, 5); trackBy: trackByActorId"
+        class="sugestao-item"
+        (click)="selecionarAtor(ator)"
+        button>
+
+        <!-- Actor Avatar -->
+        <ion-avatar slot="start">
+          <img
+            [src]="'https://image.tmdb.org/t/p/w185' + ator.profile_path"
+            alt="{{ ator.name }}"
+            class="actor-avatar"
+            loading="lazy">
+        </ion-avatar>
+
+        <!-- Actor Info -->
+        <div class="actor-info">
+          <span class="actor-name">{{ ator.name }}</span>
+        </div>
+
+        <!-- Arrow Icon -->
+        <ion-icon name="chevron-forward" slot="end" color="medium"></ion-icon>
+      </ion-item>
+    </ion-list>
+
+
+  </div>
+</ion-content>

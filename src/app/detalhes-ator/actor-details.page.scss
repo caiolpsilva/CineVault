@@ -1,0 +1,186 @@
+// Página de Detalhes do Ator - Tema Cinema Elegante
+ion-content {
+  --background: var(--gradient-primary);
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-top: 16px;
+  --padding-bottom: 16px;
+}
+
+ion-toolbar {
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --background: rgba(26, 26, 46, 0.95);
+  --color: #ffffff;
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(233, 185, 9, 0.6);
+}
+
+// Seção do Ator
+.actor-hero {
+  text-align: center;
+  padding: 40px 20px 30px;
+  background: linear-gradient(135deg, rgba(26, 26, 46, 0.9) 0%, rgba(22, 33, 62, 0.9) 100%);
+  border-radius: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.actor-img {
+  width: 180px;
+  height: 270px;
+  border-radius: 16px;
+  object-fit: cover;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  border: 3px solid rgba(212, 175, 55, 0.4);
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+
+.actor-name {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 8px;
+  background: var(--gradient-secondary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+}
+
+
+
+// Seção de Filmes
+.filmes-section {
+  margin-top: 32px;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 20px;
+  padding-left: 8px;
+  border-left: 4px solid #d4af37;
+  padding-left: 16px;
+}
+
+.filmes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+  padding: 0 4px;
+}
+
+.movie-card {
+  --background: rgba(255, 255, 255, 0.08);
+  --border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.movie-card {
+  transition: none;
+}
+
+.movie-poster {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 12px 12px 0 0;
+}
+
+.no-poster {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gradient-secondary);
+  border-radius: 12px 12px 0 0;
+}
+
+.no-poster-icon {
+  font-size: 3rem;
+  opacity: 0.7;
+}
+
+.movie-info {
+  padding: 16px;
+}
+
+.movie-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 8px;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+  box-orient: vertical;
+  overflow: hidden;
+}
+
+.movie-year {
+  font-size: 0.9rem;
+  color: #d4af37;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+// Estados especiais
+.no-movies {
+  text-align: center;
+  padding: 60px 20px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.no-movies-icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.no-movies-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.no-movies-text {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+// Estados de Loading
+.loading-container {
+  text-align: center;
+  padding: 80px 20px;
+  background: var(--gradient-primary);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-spinner {
+  --color: #d4af37;
+  margin-bottom: 20px;
+}
+
+.loading-text {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.1rem;
+  font-weight: 500;
+}
