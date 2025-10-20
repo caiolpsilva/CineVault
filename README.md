@@ -433,41 +433,4 @@ ion-thumbnail {
 }
 ```
 
-## 📊 **Pontuação Extra Conquistada**
-
-| Requisito Extra | Pontuação | Como foi cumprido |
-|---|---|---|
-| Parâmetro por rota | +1 ponto | Rota `/detalhes-ator/:id` com ActivatedRoute (usando ID para precisão) |
-| Service obrigatório | +1 ponto | MovieService com métodos de API |
-
-**Pontuação Total**: 7/6 (100% + extras)
-
-## 📈 **Melhorias Futuras**
-
-- **Paginação**: Implementar paginação para atores com muitos filmes
-- **Favoritos**: Sistema de favoritos usando localStorage
-- **Busca avançada**: Filtros por gênero, ano, etc.
-- **Offline**: Cache de dados para uso offline
-- **Testes**: Adicionar testes unitários e e2e
-- **Busca por voz**: Implementar busca por comando de voz
-- **Compartilhamento**: Permitir compartilhar perfil de ator via redes sociais
-- **Tema escuro**: Adicionar suporte a tema escuro/claro
-
-## 🐛 **Possíveis Problemas e Soluções**
-
-### **Problema: Carregamento lento ou infinito**
-**Solução**: Verifique se a chave da API está correta e se há conexão com internet.
-
-### **Problema: Ator não encontrado**
-**Solução**: Use nomes completos e verifique ortografia. A API é case-insensitive mas precisa de nomes precisos.
-
-### **Problema: Erro de CORS**
-**Solução**: O app usa a API diretamente. Se houver problemas, verifique se a chave da API está válida.
-
-## 📄 **Licença**
-
-Este projeto é para fins educacionais e segue os termos da API do TMDb.
-
----
-
 **Desenvolvido com ❤️ usando Ionic + Angular**
