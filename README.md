@@ -41,8 +41,8 @@ Permitir que usuários encontrem rapidamente atores por nome e visualizem sua fi
 
 ### 🔧 **Recursos Técnicos Avançados**
 - **Programação Reativa**: Uso extensivo de RxJS com operadores como `debounceTime`, `switchMap` e `forkJoin`
-- **Lazy Loading**: Componentes carregados sob demanda via roteamento
-- **Standalone Components**: Arquitetura moderna do Angular sem módulos
+- **Roteamento Direto**: Componentes carregados diretamente
+- **Componentes Standalone**: Arquitetura moderna do Angular sem módulos
 - **Dependency Injection**: Injeção de dependências para serviços
 - **TrackBy Functions**: Otimização de performance em listas
 
@@ -55,13 +55,13 @@ Permitir que usuários encontrem rapidamente atores por nome e visualizem sua fi
 src/
 ├── app/
 │   ├── app.component.html/ts/scss      # Componente raiz da aplicação
-│   ├── app.routes.ts                    # Configuração de rotas (lazy loading)
+│   ├── app.routes.ts                    # Configuração de rotas
 │   ├── home/                           # Página inicial (busca de atores)
 │   │   ├── home.page.html              # Template com seção hero e busca
 │   │   ├── home.page.ts                # Lógica de busca reativa
 │   │   └── home.page.scss              # Estilos da página inicial
 │   ├── detalhes-ator/                  # Página de detalhes do ator
-│   │   ├── actor-details.page.html     # Template com hero e grid de filmes
+│   │   ├── actor-details.page.html     # Template com herói e grade de filmes
 │   │   ├── actor-details.page.ts       # Lógica de carregamento de dados
 │   │   └── actor-details.page.scss     # Estilos da página de detalhes
 │   ├── services/                       # Camada de serviços
@@ -94,12 +94,12 @@ src/
   - ForkJoin para filtragem paralela
   - TrackBy para otimização de listas
 
-#### **ActorDetailsPage (`src/app/detalhes-ator/`)**
+#### **PaginaDetalhesAtor (`src/app/detalhes-ator/`)**
 - **Responsabilidades**:
   - Carregar detalhes do ator por ID
   - Buscar e ordenar filmografia
-  - Exibir grid responsivo de filmes
-  - Gerenciar estados de loading/erro
+  - Exibir grade responsiva de filmes
+  - Gerenciar estados de carregamento/erro
 - **Funcionalidades Técnicas**:
   - ActivatedRoute para parâmetros de rota
   - Ordenação por data de lançamento
@@ -350,23 +350,27 @@ export class PaginaInicial implements OnInit, OnDestroy {
 }
 ```
 
-### **Roteamento com Lazy Loading**
+### **Roteamento**
 
 ```typescript
 // src/app/app.routes.ts
 export const routes: Routes = [
   {
     path: 'home',
-    loadComponent: () => import('./home/home.page').then(m => m.PaginaInicial),
+    component: PaginaInicial,
   },
   {
     path: 'detalhes-ator/:id',
-    loadComponent: () => import('./detalhes-ator/actor-details.page').then(m => m.PaginaDetalhesAtor),
+    component: PaginaDetalhesAtor,
   },
   {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
+  },
+  {
+    path: 'detalhes-ator',
+    component: PaginaDetalhesAtor,
   },
 ];
 ```
@@ -442,9 +446,9 @@ export class DiretivaDestacar {
 - Múltiplas requisições simultâneas para verificar filmografia
 - Reduz tempo total de carregamento
 
-#### **3. Lazy Loading de Componentes**
-- Páginas carregadas sob demanda
-- Reduz bundle inicial da aplicação
+#### **3. Componentes Standalone**
+- Arquitetura moderna sem módulos
+- Imports diretos nos componentes
 
 #### **4. TrackBy Functions**
 - Otimização de re-renderização em listas

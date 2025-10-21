@@ -1,4 +1,3 @@
-// Página de Detalhes do Ator - Tema Cinema Elegante
 ion-content {
   --background: var(--gradient-primary);
   --padding-start: 16px;
@@ -15,8 +14,7 @@ ion-toolbar {
   border-bottom: 1px solid rgba(233, 185, 9, 0.6);
 }
 
-// Seção do Ator
-.actor-hero {
+.heroi-ator {
   text-align: center;
   padding: 40px 20px 30px;
   background: linear-gradient(135deg, rgba(26, 26, 46, 0.9) 0%, rgba(22, 33, 62, 0.9) 100%);
@@ -27,7 +25,7 @@ ion-toolbar {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.actor-img {
+.imagem-ator {
   width: 180px;
   height: 270px;
   border-radius: 16px;
@@ -38,8 +36,7 @@ ion-toolbar {
   transition: all 0.3s ease;
 }
 
-
-.actor-name {
+.nome-ator {
   font-size: 2rem;
   font-weight: 600;
   color: #ffffff;
@@ -51,14 +48,11 @@ ion-toolbar {
   letter-spacing: -0.5px;
 }
 
-
-
-// Seção de Filmes
-.filmes-section {
+.secao-filmes {
   margin-top: 32px;
 }
 
-.section-title {
+.titulo-secao {
   font-size: 1.5rem;
   font-weight: 600;
   color: #ffffff;
@@ -68,14 +62,14 @@ ion-toolbar {
   padding-left: 16px;
 }
 
-.filmes-grid {
+.grade-filmes {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 16px;
   padding: 0 4px;
 }
 
-.movie-card {
+.cartao-filme {
   --background: rgba(255, 255, 255, 0.08);
   --border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -86,11 +80,11 @@ ion-toolbar {
   cursor: pointer;
 }
 
-.movie-card {
+.cartao-filme {
   transition: none;
 }
 
-.movie-poster {
+.poster-filme {
   width: 100%;
   height: 240px;
   object-fit: cover;
@@ -110,11 +104,11 @@ ion-toolbar {
   opacity: 0.7;
 }
 
-.movie-info {
+.info-filme {
   padding: 16px;
 }
 
-.movie-title {
+.titulo-filme {
   font-size: 1rem;
   font-weight: 600;
   color: #ffffff;
@@ -128,7 +122,7 @@ ion-toolbar {
   overflow: hidden;
 }
 
-.movie-year {
+.ano-filme {
   font-size: 0.9rem;
   color: #d4af37;
   font-weight: 600;
@@ -136,33 +130,31 @@ ion-toolbar {
   letter-spacing: 0.5px;
 }
 
-// Estados especiais
-.no-movies {
+.sem-filmes {
   text-align: center;
   padding: 60px 20px;
   color: rgba(255, 255, 255, 0.7);
 }
 
-.no-movies-icon {
+.sem-filmes-icon {
   font-size: 3rem;
   margin-bottom: 16px;
   opacity: 0.5;
 }
 
-.no-movies-title {
+.sem-filmes-titulo {
   font-size: 1.3rem;
   font-weight: 600;
   margin-bottom: 8px;
   color: rgba(255, 255, 255, 0.9);
 }
 
-.no-movies-text {
+.sem-filmes-texto {
   font-size: 1rem;
   line-height: 1.5;
   margin: 0;
 }
 
-// Estados de Loading
 .loading-container {
   text-align: center;
   padding: 80px 20px;

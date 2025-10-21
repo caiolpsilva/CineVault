@@ -7,7 +7,7 @@ import { DiretivaDestacar } from '../diretivas/highlight.directive';
 import { ServicoFilme } from '../services/movie.service';
 
 @Component({
-  selector: 'app-actor-details',
+  selector: 'app-detalhes-ator',
   templateUrl: './actor-details.page.html',
   styleUrls: ['./actor-details.page.scss'],
   standalone: true,
@@ -28,7 +28,6 @@ export class PaginaDetalhesAtor implements OnInit {
     }
   }
 
-  // Busca ator por ID
   buscarAtorPorId(idAtor: number) {
     this.carregando = true;
     this.servicoFilme.obterDetalhesAtor(idAtor).subscribe({
@@ -43,12 +42,11 @@ export class PaginaDetalhesAtor implements OnInit {
     });
   }
 
-  // Busca créditos de filmes do ator
   buscarCreditosFilmes(idAtor: number) {
     this.servicoFilme.obterCreditosFilme(idAtor).subscribe({
       next: (response: any) => {
         this.filmes = (response.cast || [])
-          .filter((movie: any) => movie.poster_path) // Filtrar apenas filmes com poster
+          .filter((filme: any) => filme.poster_path)
           .sort((a: any, b: any) => new Date(b.release_date).getTime() - new Date(a.release_date).getTime());
         this.carregando = false;
       },
@@ -60,8 +58,7 @@ export class PaginaDetalhesAtor implements OnInit {
     });
   }
 
-  // Método para trackBy (otimização de performance)
-  trackByMovieId(index: number, movie: any): number {
-    return movie.id;
+  trackByIdFilme(index: number, filme: any): number {
+    return filme.id;
   }
 }

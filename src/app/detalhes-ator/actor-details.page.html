@@ -8,51 +8,54 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" *ngIf="ator; else loading">
-  <!-- Hero Section -->
-  <div class="actor-hero">
+  <div class="heroi-ator">
     <img
       [src]="'https://image.tmdb.org/t/p/w500' + ator.profile_path"
       alt="{{ ator.name }}"
-      class="actor-img"
-      *ngIf="ator.profile_path; else noProfileImage">
+      class="imagem-ator"
+      *ngIf="ator.profile_path; else noProfileImage"
+    />
 
     <ng-template #noProfileImage>
-      <div class="actor-img no-profile">
+      <div class="imagem-ator no-profile">
         <div class="no-profile-icon">🎭</div>
       </div>
     </ng-template>
 
-    <h1 class="actor-name">{{ ator.name }}</h1>
+    <h1 class="nome-ator">{{ ator.name }}</h1>
   </div>
 
-  <!-- Movies Section -->
-  <div class="filmes-section">
-    <h2 class="section-title">Filmografia</h2>
+  <div class="secao-filmes">
+    <h2 class="titulo-secao">Filmografia</h2>
 
-    <div class="filmes-grid" *ngIf="filmes && filmes.length > 0; else noMovies">
+    <div
+      class="grade-filmes"
+      *ngIf="filmes && filmes.length > 0; else noMovies"
+    >
       <ion-card
-        *ngFor="let movie of filmes; trackBy: trackByMovieId"
-        class="movie-card"
-        appDestacar>
-
+        *ngFor="let filme of filmes; trackBy: trackByIdFilme"
+        class="cartao-filme"
+        appDestacar
+      >
         <img
-          [src]="'https://image.tmdb.org/t/p/w400' + movie.poster_path"
-          alt="{{ movie.title }}"
-          class="movie-poster"
-          *ngIf="movie.poster_path; else noPoster">
+          [src]="'https://image.tmdb.org/t/p/w400' + filme.poster_path"
+          alt="{{ filme.title }}"
+          class="poster-filme"
+          *ngIf="filme.poster_path; else noPoster"
+        />
 
         <ng-template #noPoster>
-          <div class="movie-poster no-poster">
+          <div class="poster-filme no-poster">
             <div class="no-poster-icon">🎬</div>
           </div>
         </ng-template>
 
-        <div class="movie-info">
-          <h3 class="movie-title">{{ movie.title }}</h3>
-          <p class="movie-year" *ngIf="movie.release_date">
-            {{ movie.release_date | date:'yyyy' }}
+        <div class="info-filme">
+          <h3 class="titulo-filme">{{ filme.title }}</h3>
+          <p class="ano-filme" *ngIf="filme.release_date">
+            {{ filme.release_date | date:'yyyy' }}
           </p>
-          <p class="movie-year" *ngIf="!movie.release_date">
+          <p class="ano-filme" *ngIf="!filme.release_date">
             Data não disponível
           </p>
         </div>
@@ -60,10 +63,10 @@
     </div>
 
     <ng-template #noMovies>
-      <div class="no-movies">
-        <div class="no-movies-icon">🎭</div>
-        <h3 class="no-movies-title">Nenhum filme encontrado</h3>
-        <p class="no-movies-text">
+      <div class="sem-filmes">
+        <div class="sem-filmes-icon">🎭</div>
+        <h3 class="sem-filmes-titulo">Nenhum filme encontrado</h3>
+        <p class="sem-filmes-texto">
           Não há filmes disponíveis para este ator no momento.
         </p>
       </div>
@@ -71,7 +74,6 @@
   </div>
 </ion-content>
 
-<!-- Loading Template -->
 <ng-template #loading>
   <div class="loading-container">
     <ion-spinner name="crescent" class="loading-spinner"></ion-spinner>
