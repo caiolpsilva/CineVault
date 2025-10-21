@@ -32,6 +32,10 @@ Um aplicativo móvel em **Ionic + Angular (modo standalone)** que permite ao usu
 - **Atendido em**: `src/app/app.routes.ts` (rota `/detalhes-ator/:id`) e `src/app/detalhes-ator/actor-details.page.ts` (extração do parâmetro)
 - **Como foi atendido**: Parâmetro `id` passado da Home Page para a página de detalhes via `ActivatedRoute`, garantindo precisão na identificação do ator.
 
+### ✅ **8. Filtragem de sugestões: Excluir atores sem filmes**
+- **Atendido em**: `src/app/home/home.page.ts` (método `filtrarAtoresComFilmes`)
+- **Como foi atendido**: Após buscar atores, o app faz chamadas paralelas para verificar créditos de filmes usando `forkJoin` do RxJS. Apenas atores com pelo menos um filme (com poster_path) aparecem nas sugestões, evitando "Nenhum filme encontrado".
+
 
 
 ## 🛠️ **Tecnologias e Arquitetura**
@@ -274,10 +278,16 @@ export class HomePage implements OnInit, OnDestroy {
         }
       })
     ).subscribe(response => {
-      this.atores = (response.results || [])
+      const atoresComProfile = (response.results || [])
         .filter((ator: any) => ator.profile_path)
-        .slice(0, 5);
-      this.carregando = false;
+        .slice(0, 10); // Buscar mais para compensar filtros
+
+      if (atoresComProfile.length > 0) {
+        this.filtrarAtoresComFilmes(atoresComProfile);
+      } else {
+        this.atores = [];
+        this.carregando = false;
+      }
     });
   }
 
@@ -327,6 +337,27 @@ export class HomePage implements OnInit, OnDestroy {
     this.nomeAtor = '';
     this.atores = [];
     this.carregando = false;
+  }
+
+  // Método para filtrar atores que têm filmes
+  filtrarAtoresComFilmes(atores: any[]) {
+    const creditRequests = atores.map(ator =>
+      this.movieService.getMovieCredits(ator.id).pipe(
+        catchError(() => of({ cast: [] }))
+      )
+    );
+
+    forkJoin(creditRequests).subscribe((creditResponses: any[]) => {
+      this.atores = atores
+        .map((ator, index) => ({
+          ...ator,
+          hasMovies: (creditResponses[index].cast || [])
+            .filter((movie: any) => movie.poster_path).length > 0
+        }))
+        .filter(ator => ator.hasMovies)
+        .slice(0, 5);
+      this.carregando = false;
+    });
   }
 
   // Método para trackBy (otimização de performance)

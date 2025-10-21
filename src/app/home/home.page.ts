@@ -1,21 +1,24 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonSearchbar, IonList, IonItem, IonAvatar, IonIcon, IonSpinner, IonLabel } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
-import { Subject, debounceTime, distinctUntilChanged, takeUntil, switchMap, catchError, of } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { IonAvatar, IonButton, IonContent, IonHeader, IonIcon, IonItem, IonList, IonSearchbar, IonSpinner, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { Subject, catchError, debounceTime, distinctUntilChanged, forkJoin, of, switchMap, takeUntil } from 'rxjs';
 import { MovieService } from '../services/movie.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonSearchbar, IonList, IonItem, IonAvatar, IonIcon, IonSpinner, IonLabel, CommonModule, FormsModule],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonSearchbar, IonList, IonItem, IonAvatar, IonIcon, IonSpinner, IonButton, CommonModule, FormsModule],
 })
 export class HomePage implements OnInit, OnDestroy {
   nomeAtor: string = '';
   atores: any[] = [];
   carregando: boolean = false;
+
+
+
 
   private searchSubject = new Subject<string>();
   private destroy$ = new Subject<void>();
@@ -43,10 +46,16 @@ export class HomePage implements OnInit, OnDestroy {
         }
       })
     ).subscribe(response => {
-      this.atores = (response.results || [])
+      const atoresComProfile = (response.results || [])
         .filter((ator: any) => ator.profile_path)
-        .slice(0, 5);
-      this.carregando = false;
+        .slice(0, 10); // Buscar mais para compensar filtros
+
+      if (atoresComProfile.length > 0) {
+        this.filtrarAtoresComFilmes(atoresComProfile);
+      } else {
+        this.atores = [];
+        this.carregando = false;
+      }
     });
   }
 
@@ -98,8 +107,39 @@ export class HomePage implements OnInit, OnDestroy {
     this.carregando = false;
   }
 
+  // Método para filtrar atores que têm filmes
+  filtrarAtoresComFilmes(atores: any[]) {
+    const creditRequests = atores.map(ator =>
+      this.movieService.getMovieCredits(ator.id).pipe(
+        catchError(() => of({ cast: [] }))
+      )
+    );
+
+    forkJoin(creditRequests).subscribe((creditResponses: any[]) => {
+      this.atores = atores
+        .map((ator, index) => ({
+          ...ator,
+          hasMovies: (creditResponses[index].cast || [])
+            .filter((movie: any) => movie.poster_path).length > 0
+        }))
+        .filter(ator => ator.hasMovies)
+        .slice(0, 5);
+      this.carregando = false;
+    });
+  }
+
   // Método para trackBy (otimização de performance)
   trackByActorId(index: number, ator: any): number {
     return ator.id;
+  }
+
+
+
+  // Método para rolar para a seção de busca
+  rolarParaBusca() {
+    const element = document.querySelector('.search-container');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 }

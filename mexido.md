@@ -1,12 +1,12 @@
 # Arquivos e Pastas Utilizados no Projeto "Conheça o Ator/Atriz"
 
-Este documento detalha as pastas e arquivos utilizados no projeto, baseado nos requisitos cumpridos e nas modificações realizadas. As alterações foram feitas para atender aos pedidos do usuário, incluindo tradução para português, remoção de elementos desnecessários, busca inteligente com sugestões, e atualização do README.
+Este documento detalha as pastas e arquivos utilizados no projeto, baseado nos requisitos cumpridos e nas modificações realizadas. As alterações foram feitas para atender aos pedidos do usuário, incluindo tradução para português, remoção de elementos desnecessários, busca inteligente com sugestões, filtragem de atores sem filmes nas sugestões, e atualização do README.
 
 ## Pastas e Arquivos Utilizados
 
 ### 1. `src/app/home/`
    - **home.page.html**: Página inicial com barra de busca inteligente que mostra sugestões de atores automaticamente (máximo 5 resultados). Utiliza `ion-searchbar` e `ion-list` para interação. Cumpre o requisito de ter uma página home com navegação.
-   - **home.page.ts**: Componente standalone que gerencia a busca em tempo real com RxJS (debounceTime, distinctUntilChanged), utilizando `Router` para navegar para `/detalhes-ator/:id`. Implementa a lógica de busca e seleção de atores.
+   - **home.page.ts**: Componente standalone que gerencia a busca em tempo real com RxJS (debounceTime, distinctUntilChanged), utilizando `Router` para navegar para `/detalhes-ator/:id`. Implementa a lógica de busca e seleção de atores. **Modificado para filtrar atores sem filmes**: Adicionado método `filtrarAtoresComFilmes` que usa `forkJoin` para verificar créditos de filmes de cada ator sugerido, garantindo que apenas atores com filmes apareçam nas sugestões.
    - **home.page.scss**: Estilos modernos com tema cinema (gradientes, glassmorphism), animações de entrada e responsividade.
 
 ### 2. `src/app/detalhes-ator/`

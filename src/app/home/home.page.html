@@ -5,8 +5,21 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <!-- Seção Hero -->
+  <div class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">Descubra Atores</h1>
+      <p class="hero-subtitle">
+        Explore a filmografia completa dos seus atores favoritos
+      </p>
+      <ion-button fill="outline" color="secondary" (click)="rolarParaBusca()">
+        Começar a Buscar
+      </ion-button>
+    </div>
+  </div>
+
   <div class="search-container">
-    <!-- <h1 class="app-title">descubra atores</h1> -->
+    <h2 class="section-title">Buscar Atores</h2>
 
     <div class="search-wrapper">
       <ion-searchbar
@@ -14,7 +27,8 @@
         (ionInput)="onSearchInput($event)"
         placeholder="Digite o nome do ator/atriz..."
         animated="true"
-        showClearButton="always">
+        showClearButton="always"
+      >
       </ion-searchbar>
     </div>
   </div>
@@ -27,20 +41,20 @@
     </div>
 
     <!-- Suggestions List -->
-    <ion-list *ngIf="atores.length > 0 && !carregando">
-      <ion-item
+    <div *ngIf="atores.length > 0 && !carregando" class="suggestions-list">
+      <div
         *ngFor="let ator of atores.slice(0, 5); trackBy: trackByActorId"
         class="sugestao-item"
         (click)="selecionarAtor(ator)"
-        button>
-
+      >
         <!-- Actor Avatar -->
         <ion-avatar slot="start">
           <img
             [src]="'https://image.tmdb.org/t/p/w185' + ator.profile_path"
             alt="{{ ator.name }}"
             class="actor-avatar"
-            loading="lazy">
+            loading="lazy"
+          />
         </ion-avatar>
 
         <!-- Actor Info -->
@@ -50,9 +64,7 @@
 
         <!-- Arrow Icon -->
         <ion-icon name="chevron-forward" slot="end" color="medium"></ion-icon>
-      </ion-item>
-    </ion-list>
-
-
+      </div>
+    </div>
   </div>
 </ion-content>

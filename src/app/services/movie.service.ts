@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
@@ -24,5 +24,15 @@ export class MovieService {
   // Busca detalhes do ator por ID
   getActorDetails(actorId: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/person/${actorId}?api_key=${environment.tmdbApiKey}&language=pt-BR`);
+  }
+
+  // Busca atores populares
+  getPopularActors(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/person/popular?api_key=${environment.tmdbApiKey}&language=pt-BR&page=1`);
+  }
+
+  // Busca filmes populares
+  getPopularMovies(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/movie/popular?api_key=${environment.tmdbApiKey}&language=pt-BR&page=1`);
   }
 }
