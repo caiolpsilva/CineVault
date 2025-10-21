@@ -5,11 +5,10 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- Seção Hero -->
-  <div class="hero-section">
-    <div class="hero-content">
-      <h1 class="hero-title">Descubra Atores</h1>
-      <p class="hero-subtitle">
+  <div class="secao-hero">
+    <div class="conteudo-hero">
+      <h1 class="titulo-hero">Descubra Atores</h1>
+      <p class="subtitulo-hero">
         Explore a filmografia completa dos seus atores favoritos
       </p>
       <ion-button fill="outline" color="secondary" (click)="rolarParaBusca()">
@@ -18,10 +17,10 @@
     </div>
   </div>
 
-  <div class="search-container">
-    <h2 class="section-title">Buscar Atores</h2>
+  <div class="container-busca">
+    <h2 class="titulo-secao">Buscar Atores</h2>
 
-    <div class="search-wrapper">
+    <div class="wrapper-busca">
       <ion-searchbar
         [(ngModel)]="nomeAtor"
         (ionInput)="onSearchInput($event)"
@@ -33,36 +32,31 @@
     </div>
   </div>
 
-  <div class="suggestions-container">
-    <!-- Loading State -->
-    <div *ngIf="carregando" class="loading-container">
+  <div class="container-sugestoes">
+    <div *ngIf="carregando" class="container-carregando">
       <ion-spinner name="crescent"></ion-spinner>
-      <p class="loading-text">Buscando atores...</p>
+      <p class="texto-carregando">Buscando atores...</p>
     </div>
 
-    <!-- Suggestions List -->
-    <div *ngIf="atores.length > 0 && !carregando" class="suggestions-list">
+    <div *ngIf="atores.length > 0 && !carregando" class="lista-sugestoes">
       <div
-        *ngFor="let ator of atores.slice(0, 5); trackBy: trackByActorId"
-        class="sugestao-item"
+        *ngFor="let ator of atores.slice(0, 5)"
+        class="item-sugestao"
         (click)="selecionarAtor(ator)"
       >
-        <!-- Actor Avatar -->
         <ion-avatar slot="start">
           <img
             [src]="'https://image.tmdb.org/t/p/w185' + ator.profile_path"
             alt="{{ ator.name }}"
-            class="actor-avatar"
+            class="avatar-ator"
             loading="lazy"
           />
         </ion-avatar>
 
-        <!-- Actor Info -->
-        <div class="actor-info">
-          <span class="actor-name">{{ ator.name }}</span>
+        <div class="info-ator">
+          <span class="nome-ator">{{ ator.name }}</span>
         </div>
 
-        <!-- Arrow Icon -->
         <ion-icon name="chevron-forward" slot="end" color="medium"></ion-icon>
       </div>
     </div>

@@ -1,5 +1,5 @@
-- [ ] Atualizar movie.service.ts para adicionar métodos getPopularActors e getPopularMovies
-- [ ] Atualizar home.page.ts para carregar atores e filmes populares no ngOnInit
-- [ ] Editar home.page.html para adicionar seção hero, atores populares e filmes em destaque
-- [ ] Atualizar home.page.scss para estilos das novas seções
-- [ ] Testar as mudanças no app
+- [x] Traduzir nomes de classes CSS no home.page.html para português
+- [x] Traduzir nomes de classes CSS no home.page.scss para português e reduzir comentários
+- [x] Reduzir comentários no home.page.ts, manter apenas estratégicos
+- [ ] Verificar e ajustar outros arquivos se necessário
+- [ ] Testar o app após mudanças

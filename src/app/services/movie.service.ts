@@ -6,33 +6,33 @@ import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class MovieService {
-  private baseUrl = 'https://api.themoviedb.org/3';
+export class ServicoFilme {
+  private urlBase = 'https://api.themoviedb.org/3';
 
   constructor(private http: HttpClient) {}
 
   // Busca ator por nome
-  searchActor(name: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/search/person?api_key=${environment.tmdbApiKey}&query=${name}`);
+  buscarAtor(nome: string): Observable<any> {
+    return this.http.get(`${this.urlBase}/search/person?api_key=${environment.tmdbApiKey}&query=${nome}`);
   }
 
   // Busca créditos de filmes do ator
-  getMovieCredits(actorId: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/person/${actorId}/movie_credits?api_key=${environment.tmdbApiKey}&language=pt-BR`);
+  obterCreditosFilme(idAtor: number): Observable<any> {
+    return this.http.get(`${this.urlBase}/person/${idAtor}/movie_credits?api_key=${environment.tmdbApiKey}&language=pt-BR`);
   }
 
   // Busca detalhes do ator por ID
-  getActorDetails(actorId: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/person/${actorId}?api_key=${environment.tmdbApiKey}&language=pt-BR`);
+  obterDetalhesAtor(idAtor: number): Observable<any> {
+    return this.http.get(`${this.urlBase}/person/${idAtor}?api_key=${environment.tmdbApiKey}&language=pt-BR`);
   }
 
   // Busca atores populares
-  getPopularActors(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/person/popular?api_key=${environment.tmdbApiKey}&language=pt-BR&page=1`);
+  obterAtoresPopulares(): Observable<any> {
+    return this.http.get(`${this.urlBase}/person/popular?api_key=${environment.tmdbApiKey}&language=pt-BR&page=1`);
   }
 
   // Busca filmes populares
-  getPopularMovies(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/movie/popular?api_key=${environment.tmdbApiKey}&language=pt-BR&page=1`);
+  obterFilmesPopulares(): Observable<any> {
+    return this.http.get(`${this.urlBase}/movie/popular?api_key=${environment.tmdbApiKey}&language=pt-BR&page=1`);
   }
 }

@@ -1,104 +1,187 @@
-# "CineVault" - App Ionic + Angular
+# 🎬 CineVault - Aplicativo de Busca de Atores e Filmografia
 
-Um aplicativo móvel em **Ionic + Angular (modo standalone)** que permite ao usuário pesquisar atores/atrizes e visualizar sua filmografia completa, com filmes ordenados por ano de lançamento (mais recentes primeiro), usando a API do TMDb.
+Um aplicativo móvel híbrido desenvolvido em **Ionic 8.0.0 + Angular 20.0.0** (modo standalone) que permite aos usuários pesquisar atores/atrizes e explorar sua filmografia completa. Utiliza a API do TMDb (The Movie Database) para fornecer dados atualizados e precisos sobre o cinema.
 
-## 📋 **Requisitos Atendidos**
+![Ionic](https://img.shields.io/badge/Ionic-8.0.0-blue.svg)
+![Angular](https://img.shields.io/badge/Angular-20.0.0-red.svg)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.8.0-blue.svg)
+![Capacitor](https://img.shields.io/badge/Capacitor-6.0.0-green.svg)
 
-### ✅ **1. Mínimo 2 páginas, incluindo home.page.html comum ao Ionic**
-- **Atendido em**: `src/app/home/` (Home Page) e `src/app/detalhes-ator/` (Página de Detalhes do Ator)
-- **Como foi atendido**: Duas páginas funcionais e estilizadas, com navegação entre elas via roteamento Angular.
+## 📋 Visão Geral do Projeto
 
-### ✅ **2. Uso da biblioteca HttpClient**
-- **Atendido em**: `src/main.ts` (configuração) e `src/app/services/movie.service.ts` (uso)
-- **Como foi atendido**: HttpClient configurado com `provideHttpClient()` e usado no MovieService para chamadas à API do TMDb.
+O **CineVault** é uma aplicação mobile-first que oferece uma experiência elegante e intuitiva para descobrir e explorar o trabalho de atores famosos. Com design inspirado no universo cinematográfico, o app combina funcionalidade avançada com uma interface visualmente atraente.
 
-### ✅ **3. Uma API deve ser usada (método GET mínimo)**
-- **Atendido em**: `src/app/services/movie.service.ts`
-- **Como foi atendido**: API do TMDb com métodos GET para `search/person` (busca ator) e `person/{id}/movie_credits` (créditos de filmes).
+### 🎯 Objetivo Principal
+Permitir que usuários encontrem rapidamente atores por nome e visualizem sua filmografia completa, organizada cronologicamente (filmes mais recentes primeiro), com informações detalhadas sobre cada produção.
 
-### ✅ **4. Mínimo dois pipes: UM personalizado e UMA pipe builtin**
-- **Atendido em**: `src/app/pipes/truncate.pipe.ts` (pipe personalizado) e templates HTML (`src/app/detalhes-ator/actor-details.page.html`)
-- **Como foi atendido**: Pipe personalizado `TruncatePipe` para truncar textos, e pipes builtin `date` (formatação de data) e `uppercase` (títulos em maiúsculo).
+---
 
-### ✅ **5. Mínimo um service para alocar o uso do HttpClient**
-- **Atendido em**: `src/app/services/movie.service.ts`
-- **Como foi atendido**: Service `MovieService` com métodos `searchActor` e `getMovieCredits` para gerenciar chamadas HTTP.
+## ✨ Funcionalidades Principais
 
-### ✅ **6. Mínimo UMA diretiva personalizada e duas diretivas estruturais (@if e @for)**
-- **Atendido em**: `src/app/diretivas/highlight.directive.ts` (diretiva personalizada) e `src/app/detalhes-ator/actor-details.page.html` (diretivas estruturais)
-- **Como foi atendido**: Diretiva personalizada `DiretivaDestacar` para destacar elementos, e diretivas estruturais `*ngIf` (condicional de loading) e `*ngFor` (listagem de filmes).
+### 🔍 **Busca Inteligente de Atores**
+- **Busca em Tempo Real**: Sugestões aparecem automaticamente conforme o usuário digita (mínimo 2 caracteres)
+- **Debouncing Otimizado**: 500ms de delay para evitar requisições excessivas
+- **Filtragem Inteligente**: Exclui automaticamente atores sem filmografia disponível
+- **Limite de Resultados**: Máximo de 5 sugestões para melhor performance
+- **Busca por Perfil**: Apenas atores com foto de perfil são exibidos
 
-### ✅ **7. Pontuação extra: Passar parâmetro por rota**
-- **Atendido em**: `src/app/app.routes.ts` (rota `/detalhes-ator/:id`) e `src/app/detalhes-ator/actor-details.page.ts` (extração do parâmetro)
-- **Como foi atendido**: Parâmetro `id` passado da Home Page para a página de detalhes via `ActivatedRoute`, garantindo precisão na identificação do ator.
+### 🎭 **Página de Detalhes do Ator**
+- **Informações Completas**: Nome, foto de perfil e biografia (quando disponível)
+- **Filmografia Ordenada**: Todos os filmes ordenados por ano de lançamento (mais recentes primeiro)
+- **Filtros Automáticos**: Apenas filmes com pôster disponível são mostrados
+- **Cards Interativos**: Cada filme apresenta capa, título e ano de lançamento
+- **Navegação Fluida**: Botão "Voltar" para retornar à busca
 
-### ✅ **8. Filtragem de sugestões: Excluir atores sem filmes**
-- **Atendido em**: `src/app/home/home.page.ts` (método `filtrarAtoresComFilmes`)
-- **Como foi atendido**: Após buscar atores, o app faz chamadas paralelas para verificar créditos de filmes usando `forkJoin` do RxJS. Apenas atores com pelo menos um filme (com poster_path) aparecem nas sugestões, evitando "Nenhum filme encontrado".
+### 🎨 **Interface e Experiência do Usuário**
+- **Design Temático**: Tema "Cinema Elegante" com cores inspiradas em Hollywood
+- **Responsividade Total**: Adapta-se perfeitamente a diferentes tamanhos de tela
+- **Estados de Loading**: Spinners animados durante carregamentos
+- **Tratamento de Erros**: Mensagens elegantes para estados de erro
+- **Animações Suaves**: Transições fluidas entre estados
 
+### 🔧 **Recursos Técnicos Avançados**
+- **Programação Reativa**: Uso extensivo de RxJS com operadores como `debounceTime`, `switchMap` e `forkJoin`
+- **Lazy Loading**: Componentes carregados sob demanda via roteamento
+- **Standalone Components**: Arquitetura moderna do Angular sem módulos
+- **Dependency Injection**: Injeção de dependências para serviços
+- **TrackBy Functions**: Otimização de performance em listas
 
+---
 
-## 🛠️ **Tecnologias e Arquitetura**
+## 🏗️ Arquitetura e Estrutura do Projeto
 
-### **Framework e Linguagem**
-- **Ionic 8.0.0** + **Angular 20.0.0** (modo standalone)
-- **TypeScript 5.8.0**
-- **Capacitor** para suporte móvel
-- **RxJS ~7.8.0** para programação reativa
-
-### **Estrutura do Projeto**
+### 📁 **Estrutura de Diretórios Detalhada**
 ```
 src/
 ├── app/
-│   ├── app.component.html/ts/scss
-│   ├── app.routes.ts
-│   ├── home/
-│   │   ├── home.page.html/ts/scss
-│   ├── detalhes-ator/
-│   │   ├── actor-details.page.html/ts/scss
-│   ├── services/
-│   │   └── movie.service.ts
-│   ├── pipes/
-│   │   └── truncate.pipe.ts
-│   ├── diretivas/
-│   │   └── highlight.directive.ts
-├── environments/
-│   ├── environment.ts
-│   └── environment.prod.ts
-├── main.ts
+│   ├── app.component.html/ts/scss      # Componente raiz da aplicação
+│   ├── app.routes.ts                    # Configuração de rotas (lazy loading)
+│   ├── home/                           # Página inicial (busca de atores)
+│   │   ├── home.page.html              # Template com seção hero e busca
+│   │   ├── home.page.ts                # Lógica de busca reativa
+│   │   └── home.page.scss              # Estilos da página inicial
+│   ├── detalhes-ator/                  # Página de detalhes do ator
+│   │   ├── actor-details.page.html     # Template com hero e grid de filmes
+│   │   ├── actor-details.page.ts       # Lógica de carregamento de dados
+│   │   └── actor-details.page.scss     # Estilos da página de detalhes
+│   ├── services/                       # Camada de serviços
+│   │   └── movie.service.ts            # Serviço para API do TMDb
+│   ├── pipes/                          # Pipes personalizados
+│   │   └── truncate.pipe.ts            # Pipe para truncar textos
+│   ├── diretivas/                      # Diretivas personalizadas
+│   │   └── highlight.directive.ts      # Diretiva para destacar elementos
+│   └── main.ts                         # Ponto de entrada da aplicação
+├── environments/                       # Configurações de ambiente
+│   ├── environment.ts                  # Ambiente de desenvolvimento
+│   └── environment.prod.ts             # Ambiente de produção
+├── theme/                              # Tema global da aplicação
+│   └── variables.scss                  # Variáveis CSS e tema cinema
+├── assets/                             # Recursos estáticos
+├── global.scss                         # Estilos globais
+└── index.html                          # HTML principal
 ```
 
-### **Padrões de Design**
-- **Standalone Components**: Todos os componentes são standalone
-- **Dependency Injection**: Services injetados via DI do Angular
-- **Reactive Programming**: Uso de Observables do RxJS com operadores como debounceTime, distinctUntilChanged, switchMap e catchError
-- **Separation of Concerns**: Service para lógica de negócio, componentes para UI
-- **Performance Optimization**: Uso de trackBy functions e filtros para otimização
+### 🧩 **Componentes Principais**
 
-## 🚀 **Instalação e Execução**
+#### **HomePage (`src/app/home/`)**
+- **Responsabilidades**:
+  - Gerenciar busca de atores
+  - Exibir sugestões em tempo real
+  - Navegar para página de detalhes
+  - Controlar estados de loading
+- **Funcionalidades Técnicas**:
+  - Subject RxJS para busca reativa
+  - ForkJoin para filtragem paralela
+  - TrackBy para otimização de listas
+
+#### **ActorDetailsPage (`src/app/detalhes-ator/`)**
+- **Responsabilidades**:
+  - Carregar detalhes do ator por ID
+  - Buscar e ordenar filmografia
+  - Exibir grid responsivo de filmes
+  - Gerenciar estados de loading/erro
+- **Funcionalidades Técnicas**:
+  - ActivatedRoute para parâmetros de rota
+  - Ordenação por data de lançamento
+  - Filtros de conteúdo (apenas com pôster)
+
+#### **MovieService (`src/app/services/movie.service.ts`)**
+- **Métodos Disponíveis**:
+  - `buscarAtor(nome: string)`: Busca atores por nome
+  - `obterCreditosFilme(idAtor: number)`: Busca filmografia
+  - `obterDetalhesAtor(idAtor: number)`: Detalhes completos do ator
+  - `obterAtoresPopulares()`: Atores populares (não utilizado)
+  - `obterFilmesPopulares()`: Filmes populares (não utilizado)
+
+---
+
+## 🛠️ Tecnologias e Dependências
+
+### **Core Framework**
+- **Ionic 8.0.0**: Framework para desenvolvimento mobile híbrido
+- **Angular 20.0.0**: Framework web para SPAs
+- **TypeScript 5.8.0**: Superset JavaScript com tipagem estática
+- **Capacitor 6.0.0**: Runtime nativo para web apps
+
+### **Bibliotecas de Programação Reativa**
+- **RxJS ~7.8.0**: Programação reativa para streams de dados
+- **Zone.js ~0.15.0**: Execução de tarefas assíncronas
+
+### **UI e Estilização**
+- **Ionicons 7.0.0**: Biblioteca de ícones
+- **SCSS**: Pré-processador CSS para estilos avançados
+
+### **Desenvolvimento e Build**
+- **Angular CLI 20.0.0**: Ferramentas de desenvolvimento
+- **Angular DevKit**: Build e desenvolvimento
+- **ESLint**: Linting e qualidade de código
+
+### **Dependências de Produção**
+```json
+{
+  "@angular/animations": "^20.0.0",
+  "@angular/common": "^20.0.0",
+  "@angular/compiler": "^20.0.0",
+  "@angular/core": "^20.0.0",
+  "@angular/forms": "^20.0.0",
+  "@angular/platform-browser": "^20.0.0",
+  "@angular/platform-browser-dynamic": "^20.0.0",
+  "@angular/router": "^20.0.0",
+  "@ionic/angular": "^8.0.0",
+  "ionicons": "^7.0.0",
+  "rxjs": "~7.8.0",
+  "tslib": "^2.3.0",
+  "zone.js": "~0.15.0"
+}
+```
+
+---
+
+## 🚀 Instalação e Configuração
 
 ### **Pré-requisitos**
-- Node.js (versão 18 ou superior)
-- npm ou yarn
-- Ionic CLI: `npm install -g @ionic/cli`
+- **Node.js**: Versão 18 ou superior
+- **npm**: Gerenciador de pacotes (incluído com Node.js)
+- **Ionic CLI**: `npm install -g @ionic/cli`
+- **Git**: Para controle de versão
 
-### **Passos para Instalação**
+### **Passos de Instalação**
 
-1. **Clone o repositório** (ou copie os arquivos):
+1. **Clone o Repositório**
    ```bash
    git clone <url-do-repositorio>
    cd marlon-app
    ```
 
-2. **Instale as dependências**:
+2. **Instale as Dependências**
    ```bash
    npm install
    ```
 
-3. **Configure a chave da API do TMDb**:
+3. **Configure a API do TMDb**
    - Acesse [https://www.themoviedb.org/settings/api](https://www.themoviedb.org/settings/api)
    - Crie uma conta gratuita
-   - Vá para "API" e gere uma chave de leitura
+   - Vá para "API" → gere uma chave de leitura
    - Edite `src/environments/environment.ts`:
      ```typescript
      export const environment = {
@@ -108,65 +191,63 @@ src/
      ```
    - Edite também `src/environments/environment.prod.ts` com a mesma chave
 
-4. **Execute o aplicativo**:
+4. **Execute o Aplicativo**
    ```bash
    npm start
+   # ou
+   ionic serve
    ```
-   - O app será executado em `http://localhost:4200`
+   - Acesse: `http://localhost:4200`
 
 ### **Execução em Dispositivo Móvel**
 
-1. **Adicione a plataforma**:
+1. **Adicione Plataformas**
    ```bash
-   npx cap add android  # ou ios
+   npx cap add android  # Para Android
+   npx cap add ios      # Para iOS
    ```
 
-2. **Sincronize e execute**:
+2. **Sincronize e Execute**
    ```bash
    npx cap sync
    npx cap run android  # ou ios
    ```
 
-## 📱 **Manual do Usuário**
+---
 
-### **Como Usar o Aplicativo**
+## 📱 Manual do Usuário
 
-#### **1. Tela Inicial (Home)**
-- **Campo de Busca Inteligente**: Digite o nome do ator/atriz
-- **Sugestões Automáticas**: Conforme você digita, uma lista de atores correspondentes aparece automaticamente (máximo 5 resultados)
-- **Seleção Visual**: Cada sugestão mostra:
-  - Foto do perfil do ator
-  - Nome completo
-- **Interatividade**: Clique em qualquer ator da lista para ver seus detalhes
-- **Busca em Tempo Real**: A busca acontece automaticamente enquanto você digita
+### **Fluxo de Uso Típico**
 
-#### **2. Página de Detalhes do Ator**
-- **Informações do Ator**:
-  - Foto do perfil (carregada da API do TMDb)
-  - Nome completo do ator/atriz
-- **Filmografia**:
-  - Lista completa de todos os filmes em que o ator participou, ordenados por ano de lançamento (mais recentes primeiro)
-  - Cada filme mostra:
-    - **Capa**: Imagem do pôster
-    - **Título**: Em maiúsculas
-    - **Ano**: Ano de lançamento
-- **Interatividade**:
-  - **Botão Voltar**: Retorna à página inicial
+#### **1. Tela Inicial**
+- **Seção Hero**: Apresentação visual elegante com chamada para ação
+- **Campo de Busca**: Barra de pesquisa com placeholder intuitivo
+- **Busca Automática**: Sugestões aparecem conforme digitação
 
-#### **3. Tratamento de Erros e Estados**
-- **Carregamento**: Spinner animado durante buscas
-- **Erro de Rede**: Mensagens de erro são logadas no console
-- **Atores sem Foto**: Placeholder visual elegante
+#### **2. Busca de Atores**
+- Digite pelo menos 2 caracteres no campo de busca
+- Aguarde as sugestões carregarem automaticamente
+- Cada sugestão mostra foto do perfil e nome do ator
+- Clique em qualquer ator para ver detalhes
 
-### **Dicas de Uso**
-- **Busca Inteligente**: Digite o nome do ator/atriz
-- **Seleção Precisa**: Clique no ator correto da lista para ver seus detalhes
-- **Conexão**: Certifique-se de ter conexão com internet
-- **Responsividade**: O app se adapta a diferentes tamanhos de tela
+#### **3. Página de Detalhes**
+- **Cabeçalho**: Nome do ator e botão voltar
+- **Seção Hero**: Foto grande do perfil e nome destacado
+- **Filmografia**: Grid responsivo com todos os filmes
+- Cada filme mostra: pôster, título e ano de lançamento
 
-## 🔧 **Implementação Técnica Detalhada**
+### **Estados da Aplicação**
+- **Carregando**: Spinner animado durante buscas
+- **Erro**: Mensagens no console para debugging
+- **Sem Resultados**: Estados elegantes para conteúdo vazio
+- **Offline**: Tratamento de erros de conectividade
 
-### **Configuração da API**
+---
+
+## 🔧 Implementação Técnica Detalhada
+
+### **Configuração da API TMDb**
+
 ```typescript
 // src/environments/environment.ts
 export const environment = {
@@ -175,98 +256,53 @@ export const environment = {
 };
 ```
 
-### **Service de Filmes**
+### **Serviço de Filmes (MovieService)**
+
 ```typescript
 @Injectable({
   providedIn: 'root'
 })
-export class MovieService {
-  private baseUrl = 'https://api.themoviedb.org/3';
+export class ServicoFilme {
+  private urlBase = 'https://api.themoviedb.org/3';
 
   constructor(private http: HttpClient) {}
 
-  // Busca ator por nome
-  searchActor(name: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/search/person?api_key=${environment.tmdbApiKey}&query=${name}`);
+  buscarAtor(nome: string): Observable<any> {
+    return this.http.get(
+      `${this.urlBase}/search/person?api_key=${environment.tmdbApiKey}&query=${nome}`
+    );
   }
 
-  // Busca créditos de filmes do ator
-  getMovieCredits(actorId: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/person/${actorId}/movie_credits?api_key=${environment.tmdbApiKey}&language=pt-BR`);
+  obterCreditosFilme(idAtor: number): Observable<any> {
+    return this.http.get(
+      `${this.urlBase}/person/${idAtor}/movie_credits?api_key=${environment.tmdbApiKey}&language=pt-BR`
+    );
   }
 
-  // Busca detalhes do ator por ID
-  getActorDetails(actorId: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/person/${actorId}?api_key=${environment.tmdbApiKey}&language=pt-BR`);
-  }
-}
-```
-
-### **Pipe Personalizado**
-```typescript
-@Pipe({ name: 'truncate' })
-export class TruncatePipe implements PipeTransform {
-  transform(value: string, limit: number = 100): string {
-    if (!value) return '';
-    return value.length > limit ? value.substring(0, limit) + '...' : value;
+  obterDetalhesAtor(idAtor: number): Observable<any> {
+    return this.http.get(
+      `${this.urlBase}/person/${idAtor}?api_key=${environment.tmdbApiKey}&language=pt-BR`
+    );
   }
 }
 ```
 
-### **Diretiva Personalizada**
+### **Busca Reativa na HomePage**
+
 ```typescript
-@Directive({ selector: '[appDestacar]' })
-export class DiretivaDestacar {
-  // Diretiva vazia para compatibilidade futura
-}
-```
-
-### **Roteamento**
-```typescript
-// src/app/app.routes.ts
-export const routes: Routes = [
-  {
-    path: 'home',
-    loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
-  },
-  {
-    path: 'detalhes-ator/:id',
-    loadComponent: () => import('./detalhes-ator/actor-details.page').then((m) => m.ActorDetailsPage),
-  },
-  {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full',
-  },
-  {
-    path: 'detalhes-ator',
-    loadComponent: () => import('./detalhes-ator/actor-details.page').then( m => m.ActorDetailsPage)
-  },
-];
-```
-
-### **Componente Home**
-```typescript
-export class HomePage implements OnInit, OnDestroy {
-  nomeAtor: string = '';
-  atores: any[] = [];
-  carregando: boolean = false;
-
-  private searchSubject = new Subject<string>();
-  private destroy$ = new Subject<void>();
-
-  constructor(private router: Router, private movieService: MovieService) {}
+export class PaginaInicial implements OnInit, OnDestroy {
+  private assuntoBusca = new Subject<string>();
+  private destruir$ = new Subject<void>();
 
   ngOnInit() {
-    // Configurar busca com debouncing
-    this.searchSubject.pipe(
-      debounceTime(500),
-      distinctUntilChanged(),
-      takeUntil(this.destroy$),
-      switchMap(query => {
+    this.assuntoBusca.pipe(
+      debounceTime(500),           // Delay de 500ms
+      distinctUntilChanged(),      // Evita buscas duplicadas
+      takeUntil(this.destruir$),   // Cleanup automático
+      switchMap(query => {         // Cancela requisições anteriores
         if (query.length >= 2) {
           this.carregando = true;
-          return this.movieService.searchActor(query).pipe(
+          return this.servicoFilme.buscarAtor(query).pipe(
             catchError(error => {
               console.error('Erro na busca:', error);
               this.carregando = false;
@@ -278,9 +314,10 @@ export class HomePage implements OnInit, OnDestroy {
         }
       })
     ).subscribe(response => {
+      // Processamento dos resultados
       const atoresComProfile = (response.results || [])
-        .filter((ator: any) => ator.profile_path)
-        .slice(0, 10); // Buscar mais para compensar filtros
+        .filter(ator => ator.profile_path)
+        .slice(0, 10);
 
       if (atoresComProfile.length > 0) {
         this.filtrarAtoresComFilmes(atoresComProfile);
@@ -291,177 +328,299 @@ export class HomePage implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
-  // Método chamado quando o usuário digita na barra de busca
-  onSearchInput(event: any) {
-    const query = event.target.value?.trim() || '';
-    this.nomeAtor = query;
-    this.searchSubject.next(query);
-  }
-
-  // Método para buscar atores (mantido para compatibilidade)
-  buscarAtores() {
-    if (this.nomeAtor.length >= 2) {
-      this.carregando = true;
-      this.movieService.searchActor(this.nomeAtor).subscribe({
-        next: (response) => {
-          this.atores = (response.results || [])
-            .filter((ator: any) => ator.profile_path)
-            .slice(0, 5);
-          this.carregando = false;
-        },
-        error: (error) => {
-          console.error('Erro ao buscar atores:', error);
-          this.atores = [];
-          this.carregando = false;
-        }
-      });
-    } else {
-      this.atores = [];
-    }
-  }
-
-  // Método para selecionar um ator da lista
-  selecionarAtor(ator: any) {
-    if (ator && ator.id) {
-      this.router.navigate(['/detalhes-ator', ator.id]);
-    }
-  }
-
-  // Método para limpar a busca
-  limparBusca() {
-    this.nomeAtor = '';
-    this.atores = [];
-    this.carregando = false;
-  }
-
-  // Método para filtrar atores que têm filmes
   filtrarAtoresComFilmes(atores: any[]) {
-    const creditRequests = atores.map(ator =>
-      this.movieService.getMovieCredits(ator.id).pipe(
+    const requisicoesCreditos = atores.map(ator =>
+      this.servicoFilme.obterCreditosFilme(ator.id).pipe(
         catchError(() => of({ cast: [] }))
       )
     );
 
-    forkJoin(creditRequests).subscribe((creditResponses: any[]) => {
+    forkJoin(requisicoesCreditos).subscribe(respostasCreditos => {
       this.atores = atores
         .map((ator, index) => ({
           ...ator,
-          hasMovies: (creditResponses[index].cast || [])
-            .filter((movie: any) => movie.poster_path).length > 0
+          hasMovies: (respostasCreditos[index].cast || [])
+            .filter(movie => movie.poster_path).length > 0
         }))
         .filter(ator => ator.hasMovies)
         .slice(0, 5);
       this.carregando = false;
     });
   }
-
-  // Método para trackBy (otimização de performance)
-  trackByActorId(index: number, ator: any): number {
-    return ator.id;
-  }
 }
 ```
-### **Componente Detalhes Ator**
+
+### **Roteamento com Lazy Loading**
+
 ```typescript
-export class ActorDetailsPage implements OnInit {
-  nomeAtor: string = '';
-  ator: any = null;
-  filmes: any[] = [];
-  carregando: boolean = true;
+// src/app/app.routes.ts
+export const routes: Routes = [
+  {
+    path: 'home',
+    loadComponent: () => import('./home/home.page').then(m => m.PaginaInicial),
+  },
+  {
+    path: 'detalhes-ator/:id',
+    loadComponent: () => import('./detalhes-ator/actor-details.page').then(m => m.PaginaDetalhesAtor),
+  },
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
+];
+```
 
-  constructor(private route: ActivatedRoute, private movieService: MovieService) {}
+### **Pipe Personalizado para Truncar Textos**
 
-  ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.buscarAtorPorId(+id);
-    }
-  }
-
-  // Busca ator por ID
-  buscarAtorPorId(actorId: number) {
-    this.carregando = true;
-    this.movieService.getActorDetails(actorId).subscribe({
-      next: (response) => {
-        this.ator = response;
-        this.buscarCreditosFilmes(actorId);
-      },
-      error: (error) => {
-        console.error('Erro ao buscar ator:', error);
-        this.carregando = false;
-      }
-    });
-  }
-
-  // Busca créditos de filmes do ator
-  buscarCreditosFilmes(actorId: number) {
-    this.movieService.getMovieCredits(actorId).subscribe({
-      next: (response) => {
-        this.filmes = (response.cast || [])
-          .filter((movie: any) => movie.poster_path) // Filtrar apenas filmes com poster
-          .sort((a: any, b: any) => new Date(b.release_date).getTime() - new Date(a.release_date).getTime());
-        this.carregando = false;
-      },
-      error: (error) => {
-        console.error('Erro ao buscar filmes:', error);
-        this.filmes = [];
-        this.carregando = false;
-      }
-    });
-  }
-
-  // Método para trackBy (otimização de performance)
-  trackByMovieId(index: number, movie: any): number {
-    return movie.id;
+```typescript
+@Pipe({ name: 'truncar' })
+export class PipeTruncar implements PipeTransform {
+  transform(valor: string, limite: number = 100): string {
+    if (!valor) return '';
+    return valor.length > limite ? valor.substring(0, limite) + '...' : valor;
   }
 }
 ```
 
-## 🎨 **Estilização e UI**
+### **Diretiva Personalizada (Estrutura Preparada)**
 
-### **Componentes Ionic Utilizados**
-- `ion-header` / `ion-toolbar` / `ion-title`
-- `ion-content`
-- `ion-searchbar`
-- `ion-button`
-- `ion-list` / `ion-card` / `ion-item`
-- `ion-thumbnail` / `ion-label`
-- `ion-spinner`
-- `ion-back-button`
+```typescript
+@Directive({ selector: '[appDestacar]' })
+export class DiretivaDestacar {
+  // Estrutura preparada para futuras implementações de hover/highlight
+}
+```
 
-### **CSS Personalizado**
+---
+
+## 🎨 Design System e Estilização
+
+### **Paleta de Cores (Tema Cinema)**
+
 ```scss
-// detalhes-ator.page.scss
-.actor-info {
-  text-align: center;
-  margin: 20px 0;
+:root {
+  // Tons escuros elegantes
+  --ion-color-primary: #1a1a2e;      // Azul muito escuro
+  --ion-color-secondary: #d4af37;    // Dourado clássico
 
-  .actor-img {
-    width: 150px;
-    height: 225px;
-    border-radius: 10px;
-  }
-}
-
-ion-card {
-  margin: 10px 0;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-ion-thumbnail {
-  --size: 100px;
-}
-
-.release-year {
-  font-size: 1em;
-  font-weight: bold;
+  // Gradientes especiais
+  --gradient-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  --gradient-secondary: linear-gradient(135deg, #d4af37 0%, #f4e87c 100%);
 }
 ```
+
+### **Componentes de UI Utilizados**
+- `ion-header` / `ion-toolbar` / `ion-title`
+- `ion-content` com fullscreen
+- `ion-searchbar` com backdrop-filter
+- `ion-list` / `ion-item` / `ion-avatar`
+- `ion-card` com glassmorphism
+- `ion-button` com bordas arredondadas
+- `ion-spinner` para loading states
+- `ion-back-button` para navegação
+
+### **Técnicas de Estilização Avançadas**
+- **Glassmorphism**: Efeitos de vidro com backdrop-filter
+- **Gradientes**: Backgrounds dinâmicos e texturas
+- **Box-shadow**: Sombras suaves para profundidade
+- **Border-radius**: Bordas arredondadas consistentes
+- **Responsive Grid**: Layout adaptável com CSS Grid
+- **Scrollbar Customizado**: Estilização da barra de rolagem
+
+---
+
+## ⚡ Performance e Otimizações
+
+### **Técnicas Implementadas**
+
+#### **1. Debouncing na Busca**
+- Delay de 500ms evita requisições excessivas
+- `distinctUntilChanged()` previne buscas duplicadas
+
+#### **2. Filtragem Paralela com forkJoin**
+- Múltiplas requisições simultâneas para verificar filmografia
+- Reduz tempo total de carregamento
+
+#### **3. Lazy Loading de Componentes**
+- Páginas carregadas sob demanda
+- Reduz bundle inicial da aplicação
+
+#### **4. TrackBy Functions**
+- Otimização de re-renderização em listas
+- Identificação única por ID do ator/filme
+
+#### **5. Filtros de Conteúdo**
+- Apenas atores com foto de perfil
+- Apenas filmes com pôster disponível
+- Limitação de resultados (máx. 5 sugestões)
+
+#### **6. Loading States**
+- Feedback visual durante operações assíncronas
+- Prevenção de múltiplas requisições simultâneas
+
+---
+
+## 📊 Estrutura de Dados e APIs
+
+### **Endpoints TMDb Utilizados**
+
+#### **1. Busca de Pessoas**
+```
+GET /search/person
+```
+**Parâmetros**: `api_key`, `query` (nome do ator)
+**Resposta**: Lista de pessoas matching a query
+
+#### **2. Créditos de Filmes**
+```
+GET /person/{person_id}/movie_credits
+```
+**Parâmetros**: `api_key`, `language=pt-BR`
+**Resposta**: Filmes em que a pessoa atuou
+
+#### **3. Detalhes da Pessoa**
+```
+GET /person/{person_id}
+```
+**Parâmetros**: `api_key`, `language=pt-BR`
+**Resposta**: Informações completas da pessoa
+
+### **Estrutura de Dados**
+
+#### **Objeto Ator (Person)**
+```typescript
+interface Ator {
+  id: number;
+  name: string;
+  profile_path: string;     // Caminho para foto de perfil
+  popularity: number;
+  known_for_department: string;
+}
+```
+
+#### **Objeto Filme (Movie)**
+```typescript
+interface Filme {
+  id: number;
+  title: string;
+  poster_path: string;      // Caminho para pôster
+  release_date: string;     // Data de lançamento
+  vote_average: number;     // Avaliação média
+  overview: string;         // Sinopse
+}
+```
+
+---
+
+## 🧪 Testes e Qualidade
+
+### **Configuração de Testes**
+- **Karma**: Test runner configurado
+- **Jasmine**: Framework de testes
+- **Angular Testing Utilities**: Utilitários para testes de componentes
+
+### **Scripts Disponíveis**
+```json
+{
+  "test": "ng test",
+  "lint": "ng lint"
+}
+```
+
+### **Estrutura de Testes**
+- Testes unitários para serviços
+- Testes de componentes para páginas
+- Cobertura configurada com karma-coverage
+
+---
+
+## 🚀 Deploy e Distribuição
+
+### **Build de Produção**
+```bash
+npm run build
+# ou
+ionic build --prod
+```
+
+### **Deploy no Capacitor**
+```bash
+npx cap sync
+npx cap open android  # Abre no Android Studio
+npx cap open ios      # Abre no Xcode
+```
+
+### **Otimização para Produção**
+- **AOT Compilation**: Compilação ahead-of-time
+- **Tree Shaking**: Remoção de código não utilizado
+- **Minificação**: Redução do tamanho do bundle
+- **Source Maps**: Para debugging em produção
+
+---
+
+## 🔍 Troubleshooting
+
+### **Problemas Comuns**
+
+#### **API Key Inválida**
+- Verifique se a chave do TMDb está correta em `environment.ts`
+- Confirme que a chave tem permissões de leitura
+
+#### **Busca Não Funciona**
+- Verifique conectividade com internet
+- Confirme que digitou pelo menos 2 caracteres
+- Verifique console para erros de CORS
+
+#### **Imagens Não Carregam**
+- URLs do TMDb podem mudar - verificar documentação
+- Verificar se `poster_path` e `profile_path` existem
+
+#### **Performance Lenta**
+- Verificar se debouncing está funcionando (500ms)
+- Confirmar que filtros estão aplicados corretamente
+
+---
+
+## 📈 Roadmap e Melhorias Futuras
+
+### **Funcionalidades Planejadas**
+- [ ] **Favoritos**: Sistema de atores favoritos
+- [ ] **Cache**: Cache local de resultados
+- [ ] **Offline**: Modo offline básico
+- [ ] **Compartilhamento**: Compartilhar perfil de ator
+- [ ] **Filtros Avançados**: Por gênero, ano, etc.
+- [ ] **Biografia Completa**: Expandir seção de biografia
+- [ ] **Avaliações**: Mostrar ratings dos filmes
+- [ ] **Trending**: Atores em alta
+
+### **Melhorias Técnicas**
+- [ ] **PWA**: Progressive Web App
+- [ ] **Service Worker**: Cache avançado
+- [ ] **Unit Tests**: Cobertura completa
+- [ ] **E2E Tests**: Testes end-to-end
+- [ ] **CI/CD**: Pipeline de deploy automático
+- [ ] **Analytics**: Rastreamento de uso
+
+---
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+
+---
+
+## 👥 Contribuição
+
+Contribuições são bem-vindas! Por favor, leia as diretrizes de contribuição antes de submeter um PR.
+
+### **Passos para Contribuir**
+1. Fork o projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
+
+---
 
 **Desenvolvido com ❤️ usando Ionic + Angular**

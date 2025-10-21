@@ -26,7 +26,6 @@
   text-decoration: none;
 }
 
-// Página Home - Busca Moderna de Atores
 ion-content {
   --background: var(--gradient-primary);
   --padding-start: 20px;
@@ -35,8 +34,7 @@ ion-content {
   --padding-bottom: 20px;
 }
 
-// Seção Hero
-.hero-section {
+.secao-hero {
   min-height: 60vh;
   display: flex;
   align-items: center;
@@ -59,14 +57,14 @@ ion-content {
   }
 }
 
-.hero-content {
+.conteudo-hero {
   position: relative;
   z-index: 2;
   max-width: 600px;
   padding: 20px;
 }
 
-.hero-title {
+.titulo-hero {
   font-size: 3.5rem;
   font-weight: 700;
   color: #ffffff;
@@ -79,7 +77,7 @@ ion-content {
   }
 }
 
-.hero-subtitle {
+.subtitulo-hero {
   font-size: 1.3rem;
   color: rgba(255, 255, 255, 0.9);
   margin-bottom: 32px;
@@ -91,7 +89,7 @@ ion-content {
   }
 }
 
-.hero-section ion-button {
+.secao-hero ion-button {
   --border-radius: 25px;
   --padding-start: 32px;
   --padding-end: 32px;
@@ -104,14 +102,7 @@ ion-content {
   box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
 }
 
-// Seções de Conteúdo
-.section-container {
-  padding: 40px 0;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.section-title {
+.titulo-secao {
   font-size: 2rem;
   font-weight: 600;
   color: #ffffff;
@@ -132,81 +123,14 @@ ion-content {
   }
 }
 
-// Cards Populares
-.popular-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 16px;
-  padding: 0 20px;
-}
-
-.popular-item {
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(15px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-  cursor: pointer;
-  overflow: hidden;
-  text-align: center;
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-    background: rgba(255, 255, 255, 0.12);
-  }
-}
-
-.card-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 16px 16px 0 0;
-}
-
-.card-title {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #ffffff;
-  text-align: center;
-  margin: 8px 0;
-  line-height: 1.2;
-}
-
-.card-subtitle {
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.7);
-  text-align: center;
-  margin: 0;
-}
-
-.search-container {
+.container-busca {
   max-width: 600px;
   margin: 0 auto;
   padding: 40px 20px;
   text-align: center;
 }
 
-.app-title {
-  font-size: 2.5rem;
-  font-weight: 300;
-  margin-bottom: 8px;
-  background: bisque;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: -0.5px;
-}
-
-.app-subtitle {
-  font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 40px;
-  font-weight: 400;
-}
-
-.search-wrapper {
+.wrapper-busca {
   position: relative;
   margin-bottom: 20px;
 }
@@ -220,7 +144,6 @@ ion-searchbar {
   --icon-color: rgba(255, 255, 255, 0.7);
   --clear-button-color: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(20px);
-  
 
   &::part(container) {
     border-radius: 16px;
@@ -232,22 +155,19 @@ ion-searchbar {
   }
 }
 
-
-
-// Lista de Sugestões
-.suggestions-container {
+.container-sugestoes {
   max-width: 600px;
   margin: 0 auto;
   margin-top: 20px;
 }
 
-.suggestions-list {
+.lista-sugestoes {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.sugestao-item {
+.item-sugestao {
   display: flex;
   align-items: center;
   background: rgba(255, 255, 255, 0.08);
@@ -256,20 +176,20 @@ ion-searchbar {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
-.actor-avatar {
+.avatar-ator {
   margin-top: 15%;
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  object-fit:cover;
+  object-fit: cover;
 }
 
-.actor-info {
+.info-ator {
   flex: 1;
   padding-left: 16px;
 }
 
-.actor-name {
+.nome-ator {
   font-size: 1.1rem;
   font-weight: 600;
   color: #ffffff;
@@ -277,19 +197,12 @@ ion-searchbar {
   display: block;
 }
 
-.actor-details {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7);
-  margin: 0;
-}
-
-// Estados de Loading
-.loading-container {
+.container-carregando {
   text-align: center;
   padding: 40px 20px;
 }
 
-.loading-text {
+.texto-carregando {
   color: rgba(255, 255, 255, 0.8);
   font-size: 1rem;
   margin-top: 16px;

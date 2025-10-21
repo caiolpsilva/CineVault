@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IonAvatar, IonButton, IonContent, IonHeader, IonIcon, IonItem, IonList, IonSearchbar, IonSpinner, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { Subject, catchError, debounceTime, distinctUntilChanged, forkJoin, of, switchMap, takeUntil } from 'rxjs';
-import { MovieService } from '../services/movie.service';
+import { ServicoFilme } from '../services/movie.service';
 
 @Component({
   selector: 'app-home',
@@ -12,30 +12,26 @@ import { MovieService } from '../services/movie.service';
   styleUrls: ['home.page.scss'],
   imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonSearchbar, IonList, IonItem, IonAvatar, IonIcon, IonSpinner, IonButton, CommonModule, FormsModule],
 })
-export class HomePage implements OnInit, OnDestroy {
+export class PaginaInicial implements OnInit, OnDestroy {
   nomeAtor: string = '';
   atores: any[] = [];
   carregando: boolean = false;
 
+  private assuntoBusca = new Subject<string>();
+  private destruir$ = new Subject<void>();
 
-
-
-  private searchSubject = new Subject<string>();
-  private destroy$ = new Subject<void>();
-
-  constructor(private router: Router, private movieService: MovieService) {}
+  constructor(private router: Router, private servicoFilme: ServicoFilme) {}
 
   ngOnInit() {
-    // Configurar busca com debouncing
-    this.searchSubject.pipe(
+    this.assuntoBusca.pipe(
       debounceTime(500),
       distinctUntilChanged(),
-      takeUntil(this.destroy$),
-      switchMap(query => {
+      takeUntil(this.destruir$),
+      switchMap((query: string) => {
         if (query.length >= 2) {
           this.carregando = true;
-          return this.movieService.searchActor(query).pipe(
-            catchError(error => {
+          return this.servicoFilme.buscarAtor(query).pipe(
+            catchError((error: any) => {
               console.error('Erro na busca:', error);
               this.carregando = false;
               return of({ results: [] });
@@ -45,10 +41,10 @@ export class HomePage implements OnInit, OnDestroy {
           return of({ results: [] });
         }
       })
-    ).subscribe(response => {
+    ).subscribe((response: any) => {
       const atoresComProfile = (response.results || [])
         .filter((ator: any) => ator.profile_path)
-        .slice(0, 10); // Buscar mais para compensar filtros
+        .slice(0, 10);
 
       if (atoresComProfile.length > 0) {
         this.filtrarAtoresComFilmes(atoresComProfile);
@@ -60,29 +56,27 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this.destruir$.next();
+    this.destruir$.complete();
   }
 
-  // Método chamado quando o usuário digita na barra de busca
   onSearchInput(event: any) {
     const query = event.target.value?.trim() || '';
     this.nomeAtor = query;
-    this.searchSubject.next(query);
+    this.assuntoBusca.next(query);
   }
 
-  // Método para buscar atores (mantido para compatibilidade)
   buscarAtores() {
     if (this.nomeAtor.length >= 2) {
       this.carregando = true;
-      this.movieService.searchActor(this.nomeAtor).subscribe({
-        next: (response) => {
+      this.servicoFilme.buscarAtor(this.nomeAtor).subscribe({
+        next: (response: any) => {
           this.atores = (response.results || [])
             .filter((ator: any) => ator.profile_path)
             .slice(0, 5);
           this.carregando = false;
         },
-        error: (error) => {
+        error: (error: any) => {
           console.error('Erro ao buscar atores:', error);
           this.atores = [];
           this.carregando = false;
@@ -93,33 +87,30 @@ export class HomePage implements OnInit, OnDestroy {
     }
   }
 
-  // Método para selecionar um ator da lista
   selecionarAtor(ator: any) {
     if (ator && ator.id) {
       this.router.navigate(['/detalhes-ator', ator.id]);
     }
   }
 
-  // Método para limpar a busca
   limparBusca() {
     this.nomeAtor = '';
     this.atores = [];
     this.carregando = false;
   }
 
-  // Método para filtrar atores que têm filmes
   filtrarAtoresComFilmes(atores: any[]) {
-    const creditRequests = atores.map(ator =>
-      this.movieService.getMovieCredits(ator.id).pipe(
+    const requisicoesCreditos = atores.map(ator =>
+      this.servicoFilme.obterCreditosFilme(ator.id).pipe(
         catchError(() => of({ cast: [] }))
       )
     );
 
-    forkJoin(creditRequests).subscribe((creditResponses: any[]) => {
+    forkJoin(requisicoesCreditos).subscribe((respostasCreditos: any[]) => {
       this.atores = atores
         .map((ator, index) => ({
           ...ator,
-          hasMovies: (creditResponses[index].cast || [])
+          hasMovies: (respostasCreditos[index].cast || [])
             .filter((movie: any) => movie.poster_path).length > 0
         }))
         .filter(ator => ator.hasMovies)
@@ -128,16 +119,12 @@ export class HomePage implements OnInit, OnDestroy {
     });
   }
 
-  // Método para trackBy (otimização de performance)
   trackByActorId(index: number, ator: any): number {
     return ator.id;
   }
 
-
-
-  // Método para rolar para a seção de busca
   rolarParaBusca() {
-    const element = document.querySelector('.search-container');
+    const element = document.querySelector('.container-busca');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }

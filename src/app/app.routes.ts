@@ -1,13 +1,15 @@
 import { Routes } from '@angular/router';
+import { PaginaDetalhesAtor } from './detalhes-ator/actor-details.page';
+import { PaginaInicial } from './home/home.page';
 
 export const routes: Routes = [
   {
     path: 'home',
-    loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
+    component: PaginaInicial,
   },
   {
     path: 'detalhes-ator/:id',
-    loadComponent: () => import('./detalhes-ator/actor-details.page').then((m) => m.ActorDetailsPage),
+    component: PaginaDetalhesAtor,
   },
   {
     path: '',
@@ -16,6 +18,6 @@ export const routes: Routes = [
   },
   {
     path: 'detalhes-ator',
-    loadComponent: () => import('./detalhes-ator/actor-details.page').then( m => m.ActorDetailsPage)
+    component: PaginaDetalhesAtor,
   },
 ];
