@@ -1,5 +1,0 @@
-- [x] Traduzir nomes de classes CSS no home.page.html para português
-- [x] Traduzir nomes de classes CSS no home.page.scss para português e reduzir comentários
-- [x] Reduzir comentários no home.page.ts, manter apenas estratégicos
-- [ ] Verificar e ajustar outros arquivos se necessário
-- [ ] Testar o app após mudanças
