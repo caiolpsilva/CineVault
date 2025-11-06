@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IonAvatar, IonButton, IonContent, IonHeader, IonIcon, IonItem, IonList, IonSearchbar, IonSpinner, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonAvatar, IonButton, IonContent, IonHeader, IonIcon, IonSearchbar, IonSpinner, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { Subject, catchError, debounceTime, distinctUntilChanged, forkJoin, of, switchMap, takeUntil } from 'rxjs';
 import { ServicoFilme } from '../services/movie.service';
 
@@ -10,7 +10,7 @@ import { ServicoFilme } from '../services/movie.service';
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonSearchbar, IonList, IonItem, IonAvatar, IonIcon, IonSpinner, IonButton, CommonModule, FormsModule],
+imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonSearchbar, IonAvatar, IonIcon, IonSpinner, IonButton, CommonModule, FormsModule],
 })
 export class PaginaInicial implements OnInit, OnDestroy {
   nomeAtor: string = '';

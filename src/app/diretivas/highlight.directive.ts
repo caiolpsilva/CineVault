@@ -4,5 +4,4 @@ import { Directive } from '@angular/core';
   selector: '[appDestacar]'
 })
 export class DiretivaDestacar {
-  // Diretiva vazia - sem efeitos hover
 }

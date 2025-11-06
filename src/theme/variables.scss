@@ -1,9 +1,7 @@
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
 
-// Tema Cinema - Paleta de cores moderna e elegante
 :root {
-  // Cores principais - Tons de cinema
   --ion-color-primary: #1a1a2e;
   --ion-color-primary-rgb: 26, 26, 46;
   --ion-color-primary-contrast: #ffffff;
@@ -11,7 +9,6 @@
   --ion-color-primary-shade: #15152a;
   --ion-color-primary-tint: #2d2d4a;
 
-  // Cores secundárias - Tons dourados e acinzentados
   --ion-color-secondary: #d4af37;
   --ion-color-secondary-rgb: 212, 175, 55;
   --ion-color-secondary-contrast: #000000;
@@ -19,7 +16,6 @@
   --ion-color-secondary-shade: #bb9730;
   --ion-color-secondary-tint: #d7b24a;
 
-  // Cores de sucesso - Verde elegante
   --ion-color-success: #2e8b57;
   --ion-color-success-rgb: 46, 139, 87;
   --ion-color-success-contrast: #ffffff;
@@ -27,7 +23,7 @@
   --ion-color-success-shade: #287a4d;
   --ion-color-success-tint: #419c67;
 
-  // Cores de aviso - Laranja sofisticado
+
   --ion-color-warning: #cd853f;
   --ion-color-warning-rgb: 205, 133, 63;
   --ion-color-warning-contrast: #000000;
@@ -35,7 +31,7 @@
   --ion-color-warning-shade: #b47537;
   --ion-color-warning-tint: #d08f52;
 
-  // Cores de erro - Vermelho clássico
+
   --ion-color-danger: #8b0000;
   --ion-color-danger-rgb: 139, 0, 0;
   --ion-color-danger-contrast: #ffffff;
@@ -43,7 +39,7 @@
   --ion-color-danger-shade: #7a0000;
   --ion-color-danger-tint: #9c1a1a;
 
-  // Cores neutras - Fundo escuro elegante
+
   --ion-color-light: #f8f9fa;
   --ion-color-light-rgb: 248, 249, 250;
   --ion-color-light-contrast: #000000;
@@ -65,41 +61,40 @@
   --ion-color-dark-shade: #1d2124;
   --ion-color-dark-tint: #363a3e;
 
-  // Background e superfícies
+
   --ion-background-color: #0f0f23;
   --ion-background-color-rgb: 15, 15, 35;
 
-  // Text colors
+
   --ion-text-color: #ffffff;
   --ion-text-color-rgb: 255, 255, 255;
 
-  // Toolbar
+
   --ion-toolbar-background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
   --ion-toolbar-color: #ffffff;
 
-  // Cards e superfícies
+
   --ion-card-background: rgba(255, 255, 255, 0.05);
   --ion-card-color: #ffffff;
 
-  // Item
+
   --ion-item-background: rgba(255, 255, 255, 0.03);
   --ion-item-color: #ffffff;
 
-  // Botões
+
   --ion-color-primary-contrast: #ffffff;
   --ion-color-secondary-contrast: #1a1a2e;
 
-  // Sombras e bordas
+
   --ion-card-box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   --ion-card-border-radius: 16px;
 
-  // Gradientes para elementos especiais
+
   --gradient-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
   --gradient-secondary: linear-gradient(135deg, #d4af37 0%, #f4e87c 100%);
   --gradient-accent: linear-gradient(135deg, #2e8b57 0%, #3cb371 100%);
 }
 
-// Tema escuro personalizado
 .ion-color-primary {
   --ion-color-base: var(--ion-color-primary);
   --ion-color-base-rgb: var(--ion-color-primary-rgb);
@@ -118,7 +113,6 @@
   --ion-color-tint: var(--ion-color-secondary-tint);
 }
 
-// Estilos globais para tema cinema
 ion-app {
   --ion-background-color: var(--ion-background-color);
   --ion-text-color: var(--ion-text-color);
@@ -152,12 +146,12 @@ ion-button {
   letter-spacing: 0.5px;
 }
 
-// Animações suaves
+
 * {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-// Scrollbar customizado
+
 ::-webkit-scrollbar {
   width: 8px;
 }
