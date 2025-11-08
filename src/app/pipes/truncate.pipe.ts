@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'truncar'
+  name: 'truncar',
+  standalone: true
 })
 export class PipeTruncar implements PipeTransform {
   transform(valor: string, limite: number = 100): string {

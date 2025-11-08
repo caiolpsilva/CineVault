@@ -4,14 +4,15 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IonBackButton, IonButtons, IonCard, IonContent, IonHeader, IonIcon, IonSpinner, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { DiretivaDestacar } from '../diretivas/highlight.directive';
+import { PipeTruncar } from '../pipes/truncate.pipe';
 import { ServicoFilme } from '../services/movie.service';
 
 @Component({
   selector: 'app-detalhes-ator',
-  templateUrl: './actor-details.page.html',
-  styleUrls: ['./actor-details.page.scss'],
+  templateUrl: './detalhes-ator.page.html',
+  styleUrls: ['./detalhes-ator.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonCard, IonSpinner, IonIcon, CommonModule, FormsModule, DiretivaDestacar]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonCard, IonSpinner, IonIcon, CommonModule, FormsModule, DiretivaDestacar, PipeTruncar]
 })
 export class PaginaDetalhesAtor implements OnInit {
   nomeAtor: string = '';

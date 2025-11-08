@@ -54,7 +54,7 @@
         </ion-avatar>
 
         <div class="info-ator">
-          <span class="nome-ator">{{ ator.name }}</span>
+          <span class="nome-ator">{{ ator.name | truncar:20 }}</span>
         </div>
 
         <ion-icon name="chevron-forward" slot="end" color="medium"></ion-icon>

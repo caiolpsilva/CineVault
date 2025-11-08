@@ -51,7 +51,7 @@
         </ng-template>
 
         <div class="info-filme">
-          <h3 class="titulo-filme">{{ filme.title }}</h3>
+          <h3 class="titulo-filme">{{ filme.title | truncar:20 }}</h3>
           <p class="ano-filme" *ngIf="filme.release_date">
             {{ filme.release_date | date:'yyyy' }}
           </p>

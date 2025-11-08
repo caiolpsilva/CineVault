@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { PaginaDetalhesAtor } from './actor-details.page';
+import { PaginaDetalhesAtor } from './detalhes-ator.page';
 
 describe('PaginaDetalhesAtor', () => {
   let component: PaginaDetalhesAtor;

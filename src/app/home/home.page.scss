@@ -158,6 +158,7 @@ ion-searchbar {
   max-width: 600px;
   margin: 0 auto;
   margin-top: 20px;
+  padding-bottom:300px;
 }
 
 .lista-sugestoes {
@@ -206,6 +207,24 @@ ion-searchbar {
   font-size: 1rem;
   margin-top: 16px;
   font-weight: 500;
+}
+
+ion-footer {
+  --background: rgba(26, 26, 46, 0.9);
+  --color: #ffffff;
+  text-align: center;
+  padding: 20px 0;
+  margin-top: 40px;
+}
+
+ion-footer ion-toolbar {
+  --background: transparent;
+}
+
+ion-footer ion-title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 

@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { PaginaDetalhesAtor } from './detalhes-ator/actor-details.page';
+import { PaginaDetalhesAtor } from './detalhes-ator/detalhes-ator.page';
 import { PaginaInicial } from './home/home.page';
 
 export const routes: Routes = [
